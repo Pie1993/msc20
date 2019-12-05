@@ -22,6 +22,7 @@ import msc20.components.model.User;
 @RequestMapping("/userLogin")
 public class LoginController extends Msc20Controller {
 
+	
 	@GetMapping("/login")
 	@ResponseBody
 	public void login(HttpSession session, HttpServletResponse response, @RequestParam String username,
