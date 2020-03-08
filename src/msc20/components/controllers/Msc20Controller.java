@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import msc20.components.services.EventsService;
 import msc20.components.services.LoginService;
 import msc20.components.services.UserManagmentService;
 
@@ -23,6 +24,9 @@ public class Msc20Controller {
 
 	@Autowired
 	protected UserManagmentService userManagmentService;
+	
+	@Autowired
+	protected EventsService eventsService;
 
 	@GetMapping("/")
 	@ResponseBody

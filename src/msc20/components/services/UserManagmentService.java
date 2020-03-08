@@ -18,8 +18,9 @@ public class UserManagmentService {
 
 	}
 
-	public void createUser(String username, String email, String name, String surname, String password) {
-		User user = new User(email, name, surname, username);
+	public void createUser(String username, String email, String name, String surname, String password,
+			boolean company) {
+		User user = new User(email, name, surname, username, company);
 		Credential credential = new Credential(user, password);
 		credentialsDAO.save(credential);
 

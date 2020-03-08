@@ -9,13 +9,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import msc20.components.model.User;
+import dto.CredentialsDTO;
+import dto.UserDTO;
+
 
 
 @Controller()
@@ -23,21 +26,20 @@ import msc20.components.model.User;
 public class LoginController extends Msc20Controller {
 
 	
-	@GetMapping("/login")
+	@PostMapping("/login")
 	@ResponseBody
-	public void login(HttpSession session, HttpServletResponse response, @RequestParam String username,
-			@RequestParam String password) {
+	public void login(HttpSession session, HttpServletResponse response, @RequestBody CredentialsDTO credentials
+			) {
 
-		User user = loginService.login(username, password);
-
+		
+		UserDTO userDTO = loginService.login(credentials.getUsername(),credentials.getPassword());
 		JSONObject json = createJsonObject(response);
-
+		
 		try {
-			if (user == null)
-				json.append("status", "error");
+			if (userDTO == null)
+				json.put("status", "error");
 			else
-				json.append("status", "success");
-
+				json.put("user", JSONObject.wrap(userDTO));
 			response.getWriter().write(json.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
