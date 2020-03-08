@@ -22,6 +22,7 @@ public class DbManager {
 			tx.commit();
 			return true;
 		} catch (final Exception e) {
+			e.printStackTrace();
 			tx.rollback();
 			return false;
 		} finally {

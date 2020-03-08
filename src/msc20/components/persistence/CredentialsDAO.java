@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import msc20.components.model.Credential;
+import msc20.components.model.Pair;
 import msc20.components.model.User;
-
 
 @Repository
 public class CredentialsDAO {
@@ -47,5 +47,20 @@ public class CredentialsDAO {
 		return result;
 	}
 
+	public User getUser(String username) {
+		final Session session = sessionFactory.openSession();
+		Credential cred = null;
+		final Query<Credential> query = session
+				.createNativeQuery("select * from Credential as c where c.user_username=:u", Credential.class)
+				.setParameter("u", username);
+		cred = query.uniqueResult();
+		if (cred != null)
+			for (Pair<Double,Double> s : cred.getUser().getPastCountries()) {
+				s.getFirst();
+			}
+
+		session.close();
+		return cred == null ? null : cred.getUser();
+	}
 
 }
