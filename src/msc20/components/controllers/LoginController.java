@@ -30,6 +30,8 @@ public class LoginController extends Msc20Controller {
 	@ResponseBody
 	public void login(HttpSession session, HttpServletResponse response, @RequestBody CredentialsDTO credentials
 			) {
+		
+		System.out.println("sono entarto in login");
 
 		
 		UserDTO userDTO = loginService.login(credentials.getUsername(),credentials.getPassword());
